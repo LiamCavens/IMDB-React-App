@@ -9,11 +9,20 @@ class Film extends Component {
         return (
             <div className='films'>
                 <h3 className='film-review'>{this.props.filmName} </h3>
-                <ul>{this.props.children}</ul>
-                <textarea name="reviewBox" value={this.state.reviewText} onChange={this.onChange}>
+
+                <ul>
+                    {this.props.reviews.map((review, index) =>
+                        <li key={index}>{review}
+                            <button onClick={() => this.removeReviewOnClick(index)}>
+                                Remove
+                            </button>
+                        </li>
+                    )}
+                </ul>
+                <textarea name="reviewBox" value={this.state.reviewText} onChange={this.onChange} placeholder="Type review here...">
                 </textarea>
 
-                <button type="submit" onClick={this.onClick}>
+                <button onClick={this.onClick}>
                     Add Review
                 </button>
             </div>
@@ -28,10 +37,15 @@ class Film extends Component {
     };
 
     onClick = () => {
-        console.log(this.props.onClick)
-
-        this.props.onClick(this.state.reviewText)
+        this.props.addReview(this.state.reviewText)
+        this.setState({
+            reviewText: ''
+        })
     };
+
+    removeReviewOnClick = (index) => {
+        this.props.removeReview(index)
+    }
 }
 
 export default Film;
