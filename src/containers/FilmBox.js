@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FilmList from '../components/FilmList';
 
 class CommentBox extends Component {
     constructor(props) {
